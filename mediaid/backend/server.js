@@ -24,28 +24,17 @@ app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 
 // ── CORS
 const corsOptions = {
-  origin: function (origin, callback) {
-    const allowed = [
-      process.env.FRONTEND_URL,
-      'http://localhost:5173',
-      'http://localhost:5174',
-      'http://localhost:5175',
-      'http://localhost:3000',
-      'http://127.0.0.1:5173',
-      'http://127.0.0.1:5174',
-    ].filter(Boolean);
-
-    // Allow requests with no origin (mobile, Postman, curl)
-    // Or allow any localhost/127.0.0.1 origin in development
-    const isLocal = origin && (origin.startsWith('http://localhost') || origin.startsWith('http://127.0.0.1'));
-    
-    if (!origin || allowed.includes(origin) || (process.env.NODE_ENV === 'development' && isLocal)) {
-      return callback(null, true);
-    }
-    
-    console.error(`CORS Error: Origin ${origin} not allowed`);
-    return callback(new Error('Not allowed by CORS'));
-  },
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5175",
+    "http://localhost:5177",
+    "http://localhost:3000",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:5174",
+    "https://mediaid-atlas.vercel.app",
+    process.env.FRONTEND_URL
+  ].filter(Boolean),
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -95,6 +84,10 @@ app.use('/api/users', userRoutes);
 app.use('/api/chat', chatRoutes);
 
 // ── Health Check
+app.get('/', (req, res) => {
+  res.json({ success: true, message: "Mediaid backend running" });
+});
+
 app.get('/api/health', (req, res) => {
   const hasAtlas = (process.env.MONGO_URI || '').includes('mongodb.net');
   const hasGemini = !!(process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'your_gemini_api_key_here');

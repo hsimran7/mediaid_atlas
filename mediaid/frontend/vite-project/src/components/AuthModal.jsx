@@ -70,7 +70,7 @@ export default function AuthModal({ onClose, defaultTab = 'login', showToast }) 
     <div style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.4)', backdropFilter:'blur(12px)', display:'flex', alignItems:'center', justifyContent:'center', zIndex:950, padding:16 }}
       onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
 
-      <div className="glass-panel" style={{ width:'100%', maxWidth:520, padding:48, maxHeight:'90vh', overflowY:'auto', position:'relative', border: '1.5px solid rgba(255,255,255,0.3)', overflow: 'hidden' }}>
+      <div className="glass-panel" style={{ width:'100%', maxWidth:520, padding:'48px 48px 80px 48px', maxHeight:'90vh', overflowY:'auto', overflowX:'hidden', position:'relative', border: '1.5px solid rgba(255,255,255,0.3)' }}>
 
         {/* ERROR OVERLAY */}
         <AnimatePresence>
@@ -80,7 +80,7 @@ export default function AuthModal({ onClose, defaultTab = 'login', showToast }) 
               animate={{ opacity: 1, backdropFilter: 'blur(8px)' }}
               exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
               style={{
-                position: 'absolute', inset: 0, zIndex: 100,
+                position: 'absolute', inset: 0, zIndex: 100, borderRadius: 'inherit',
                 background: 'rgba(250,249,246,0.3)', 
                 display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24
               }}
