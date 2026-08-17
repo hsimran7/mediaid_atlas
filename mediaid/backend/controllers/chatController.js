@@ -8,7 +8,7 @@ let model = null;
 
 function getModel() {
   if (!model) {
-    if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === 'your_gemini_api_key_here') {
+    if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === 'AIzaSyDt4sLHEtt4KujsJJ1wTgxh8N3yKlJD3r0') {
       return null;
     }
     genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
